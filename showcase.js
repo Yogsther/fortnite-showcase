@@ -71,7 +71,7 @@ function rotate() {
 function drawFrame(id) {
   const item = itemFromID(id);
   if (rotation < 0) rotation = item.frames;
-  var imageID = rotation % item.frames;
+  window.imageID = rotation % item.frames;
   if (imageID < 0) {
     imageID *= -1
   }
