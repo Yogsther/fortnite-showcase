@@ -2,43 +2,56 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 
-var rotation = 13;
+var rotation = 0;
 var mousePos;
 var lastMousePosition;
 var mouseDown = false;
 var frames = new Object();
 
-loadItemPage(0);
-tempLoad(); /* TODO: Remove later */
+var selectedItem = 0;
 
-function loadItemPage(itemID) {
+var readyToRender = false;
+
+setInterval(function () {
+  if (readyToRender) {
+    try {
+      drawFrame(selectedItem);
+    } catch (e) {
+      console.warn("Waiting for textures.")
+    }
+  }
+}, 16);
+
+loadItemPage();
+loadBlocks(); /* Only load this once per winodw load. */
+
+function loadItemPage() {
   frames = {}; /* Reset frames */
-  rotation = itemFromID(itemID).mainframe;
-  printInfo(itemID);
-  loadTextures(itemID);
-  try {
-    clearInterval(interval);
-  } catch (e) {}
-  window.interval = setInterval(function () {
-    drawFrame(itemID);
-  }, 15);
+  rotation = itemFromID(Number(selectedItem)).mainframe;
+  printInfo();
+  loadTextures();
+  readyToRender = true;
 }
 
-function tempLoad() {
-  /* Temporary function for loading a selection list, this will be removed later. */
-  document.getElementById("selection").innerHTML = "";
+function loadBlocks() {
   for (let i = 0; i < items.length; i++) {
-    document.getElementById("selection").innerHTML += "<option value='" + i + "'>" + items[i].name + "</option>"
+    var item = items[i];
+    var imgID = item.mainframe;
+    if (item.mainframe < 10) {
+      imgID = "0" + imgID;
+    }
+    document.getElementById("chooser-block").innerHTML += '<div onclick="changeItem(' + i + ')" class="part-block" style="background-Image:url(src/' + item.src + '/' + item.src + imgID + '.jpg); border-color:' + rarityColorsHex[item.rarity] + ';"></div>';
   }
 }
 
-function tempChangeItem() {
-  var id = document.getElementById("selection").value;
-  loadItemPage(Number(id));
+
+function changeItem(id) {
+  selectedItem = id;
+  loadItemPage();
 }
 
-function loadTextures(id) {
-  var item = itemFromID(id);
+function loadTextures() {
+  var item = itemFromID(Number(selectedItem));
   for (let i = 0; i < item.frames; i++) {
     var imageID = i;
     if (imageID < 10) {
@@ -46,17 +59,39 @@ function loadTextures(id) {
     }
     frames[imageID] = new Image();
     frames[imageID].src = "src/" + item.src + "/" + item.src + imageID + ".jpg";
+    console.log("Loaded: " + "src/" + item.src + "/" + item.src + imageID + ".jpg");
   }
   console.log("Loaded " + item.frames + " textures successfully.");
 }
 
-function printInfo(id) {
-  /* Print out the information about this item */
-  /* TODO this entire method */
-  var item = itemFromID(id)
-  document.getElementById("info").innerHTML = "<h3>" + item.name + "</h3><br>" +
-    item.description + "<br>Cost: " + item.cost;
+function printInfo() {
+  /* Print out the information about this item and change the rarity background color. */
+  var item = itemFromID(Number(selectedItem));
+
+  /* Change background color */
+  for (let i = 0; i < rarityColors.length; i++) {
+    document.getElementById("item_info").classList.remove(rarityColors[i]);
+  }
+  document.getElementById("item_info").classList.toggle(rarityColors[item.rarity]);
+
+  document.getElementById("title").innerHTML = (item.name).toUpperCase();
+
+  var description = document.getElementById("description");
+  description.innerHTML = "";
+
+  if (item.special != null && item.special != undefined) {
+    description.innerHTML = "<span style='color:#f9d55c'>(Special: " + item.special + ")</span>";
+  }
+  description.innerHTML += "<br>" + item.description;
+
+  if (item.set != undefined && item.set != null) {
+    description.innerHTML += "<br><b><span style='color:#e8e8e8;'>[" + (item.set.toUpperCase()) + "]</span></b>";
+  }
+  var extra = "";
+  if (!isNaN(item.cost)) extra = " V Bucks or " + (item.cost / 100) + " USD/EUR";
+  document.getElementById("price").innerHTML = "Price: " + item.cost + extra;
 }
+
 
 function rotate() {
   if (!mouseDown) return;
@@ -65,11 +100,12 @@ function rotate() {
     if (lastMousePosition.x < mousePos.x) rotation++;
   } catch (e) {}
   lastMousePosition = mousePos;
+  drawFrame();
 }
 
 
-function drawFrame(id) {
-  const item = itemFromID(id);
+function drawFrame() {
+  var item = itemFromID(Number(selectedItem));
   if (rotation < 0) rotation = item.frames;
   window.imageID = rotation % item.frames;
   if (imageID < 0) {

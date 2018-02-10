@@ -1,0 +1,173 @@
+body {
+  background: #111;
+}
+
+#canvas {
+  border-radius: 10px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  display: inline-block;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+#wrap {
+  border-radius: 10px;
+  width: 1000px; //background: white;
+  margin: 0 auto;
+  position: relative;
+  top: 20px;
+}
+
+#item_info {
+  //background-image: -webkit-linear-gradient(200deg, #cacbcb, #747a80);
+  height: 800px;
+  width: 530px;
+  right: 0px;
+  position: absolute;
+  display: inline-block;
+  top: 0px;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+.common{
+  background-image: -webkit-linear-gradient(200deg, #cacbcb, #747a80);
+}
+.uncommon{
+  background-image: -webkit-linear-gradient(200deg, #91eb01, #008005);
+}
+.rare{
+  background-image: -webkit-linear-gradient(200deg, #00e9f0, #0058bf);
+}
+.epic{
+  background-image: -webkit-linear-gradient(200deg, #d928f6, #762dd3);
+}
+.legendary{
+  background-image: -webkit-linear-gradient(200deg, #f1b459, #d7883c);
+}
+
+* {
+  /* Defaults */
+  font-family: Fortnitefont !important;
+  font-family: 'Roboto', sans-serif; /* Fallback */
+  color: white;
+}
+
+@font-face{
+  /* Import Fortnite font */
+  font-family: Fortnitefont;
+  src: url("fonts/fortnitefont.otf") format("opentype");
+}
+
+#main_info{
+  height: 800px;
+  width: 500px;
+  position: absolute;
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8));
+  bottom: 0px;
+  right: 15px;
+}
+
+#infobox{
+  height: 270px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 100%;
+}
+
+
+
+#title{
+  display: block;
+  width: 480px;
+  font-size: 30px;
+  padding: 10px;
+}
+
+#description{
+  display: block;
+  width: 480px;
+  padding: 10px;
+  margin-top: -10px;
+  max-height: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#price{
+  display: block;
+  width: 480px;
+  padding: 10px;
+}
+
+
+#logo{
+  
+}
+
+#controlpanel{
+  background: black;
+  height: 140px;
+  width: 450px;
+  display: inline-block;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+#chooser-block{
+  height: 630px;
+  width: 430px;
+  border-radius: 10px;
+  background: black;
+  padding: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.part-block{
+  height: 83px;
+  width: 83px;
+  margin: 8px;
+  background: white;
+  display: inline-block;
+  border-radius: 5px 0px 5px 5px;
+  cursor: pointer;
+  background-image: url(src/crackshot/crackshot18.jpg);
+  background-size: 103px;
+  background-repeat: no-repeat;
+  border-style: solid;
+  border-width: 2px;
+  background-position: 50% 10%;
+  border-color: hotpink;
+}
+
+
+::-webkit-scrollbar{
+    background-color: black;
+    width: 7px;
+    border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #3a3a3a;
+    border-radius: 3px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

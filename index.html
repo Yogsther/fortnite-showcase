@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>FortniteShowca.se</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="items.js"></script>
-  </head>
-  <body>
+  <meta charset="utf-8">
+  <title>FortniteShowca.se</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="items.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+</head>
+
+<body>
+  <div id="wrap">
+    <div id="controlpanel"></div>
+    <div id="chooser-block">  
+    </div>
     <canvas id="canvas" height="500" width="500"></canvas>
-    <br>
-    <span id="info">Loading..</span>
-    <br>
-    
-    <select id="selection" oninput="tempChangeItem()"></select>
-    
-    
-    <script src="showcase.js"></script>
-  </body>
+    <div id="item_info">
+      <div id="main_info">
+        <div id="infobox">
+          <span id="title">ITEM_TITLE</span>
+          <span id="description">ITEM_DESCRIPTION</span>
+          <span id="price">ITEM_PRICE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="showcase.js"></script>
+</body>
 </html>
